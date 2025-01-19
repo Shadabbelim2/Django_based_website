@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %} All Contect User {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <table class="table table-bordered border-primary">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">S. No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email Id.</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Describtion</th>
+            <th scope="col">Date & Time</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Edit</th>
+
+
+
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+    
+            {% for con in contect %}
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{con.name}}</td>
+            <td>{{con.email}}</td>
+            <td>{{con.phone}}</td>
+            <td>{{con.desc}}</td>
+            <td>{{con.date}}</td>
+            <td>
+
+                <a href="delete/{{con.id}}" class="btn btn-danger">Delete</a>
+
+
+            </td>
+            <td>
+
+                <a href="edit/{{con.id}}" class="btn btn-success">Edit</a>
+
+
+            </td>
+    
+    
+          </tr>
+         {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+{% endblock body %}

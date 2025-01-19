@@ -1,4 +1,4 @@
-from django.shortcuts import render 
+from django.shortcuts import render , redirect
 from datetime import datetime
 from home.models import Contect
 from django.contrib import messages
@@ -20,3 +20,35 @@ def contect(request):
           contect.save()
           messages.success(request, "Your Message Send Successfully!.")
      return render(request , 'contect.html')
+
+def show(request):
+     queryset=Contect.objects.all()
+     context={'contect' : queryset}
+     return render(request , 'show.html' , context )
+
+def delete(request , id):
+     queryset=Contect.objects.get(id = id)
+     queryset.delete()
+     return redirect('show')
+
+def edit(request , id):
+     queryset = Contect.objects.get(id = id )
+     if request.method == "POST" :
+          name =request.POST.get('name')
+          email =request.POST.get('email')
+          phone =request.POST.get('phone')
+          desc =request.POST.get('desc')
+
+          queryset.name=name
+          queryset.email = email
+          queryset.phone = phone
+          queryset.desc = desc
+          queryset.date = datetime.today()
+          
+          print(queryset.name,  queryset.email)
+          
+          queryset.save()
+
+          return redirect('show')
+     context = {'contect' : queryset}
+     return render(request , 'update.html' , context)
