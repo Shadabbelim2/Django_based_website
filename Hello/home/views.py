@@ -23,6 +23,8 @@ def contect(request):
 
 def show(request):
      queryset=Contect.objects.all()
+     if request.GET.get('search'): 
+        queryset=queryset.filter(name__icontains = request.GET.get('search'))
      context={'contect' : queryset}
      return render(request , 'show.html' , context )
 
